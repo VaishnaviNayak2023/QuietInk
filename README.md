@@ -1,90 +1,536 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# QuietInk
 
-# Run and deploy your AI Studio app
+> Offline Domestic Violence Escape Assistant powered by Gemma 4
 
-This contains everything you need to run your app locally.
+QuietInk is a stealth offline AI safety assistant disguised as a minimal notes and journaling mobile application. It is designed for domestic violence survivors and individuals living in high-risk or coercive environments where digital surveillance, restricted internet access, or monitored devices make seeking help dangerous.
 
-View your app in AI Studio: https://ai.studio/apps/d862591e-5bec-4de7-a20f-c312fff090aa
+On the surface, QuietInk behaves like a simple offline notes and journaling application used for writing thoughts, checklists, and personal notes. Hidden beneath this ordinary interface is a secure offline environment called **Private Space**, which contains AI-powered safety tools, emergency planning systems, encrypted evidence storage, and silent emergency workflows powered by Gemma 4.
 
-## Run Locally
+The project explores how modern AI systems can become:
+- humanitarian technology
+- offline safety infrastructure
+- survivability-focused mobile systems
 
-**Prerequisites:**  Node.js
+---
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMMA_API_KEY` in [.env.local](.env.local) to your Gemma API key
-3. Run the app:
-   `npm run dev`
+# Table of Contents
 
-## Training the Safety Classifier
+- [Overview](#overview)
+- [The Problem](#the-problem)
+- [Solution](#solution)
+- [Core Features](#core-features)
+- [AI Architecture](#ai-architecture)
+- [Security Architecture](#security-architecture)
+- [Stealth Design Philosophy](#stealth-design-philosophy)
+- [Secure Vault](#secure-vault)
+- [Emergency Systems](#emergency-systems)
+- [Tech Stack](#tech-stack)
+- [Project Architecture](#project-architecture)
+- [Setup Instructions](#setup-instructions)
+- [Future Roadmap](#future-roadmap)
+- [Disclaimer](#disclaimer)
+- [License](#license)
 
-This project includes a small safety classifier trained from `data/data2/Domestic violence.csv`.
+---
 
-1. Install Python dependencies:
-   `py -m pip install -r requirements.txt`
-2. Prepare the dataset:
-   `npm run prepare-data`
-3. Train the model:
-   `npm run train-model`
-4. Evaluate the trained model:
-   `npm run evaluate-model`
+# Overview
 
-## New Backend APIs
+QuietInk was built around one core principle:
 
-- `POST /api/safety-check`
-  - Expects a `profile` object containing `age`, `education`, `employment`, `income`, and `maritalStatus`.
-  - Returns a safety risk score and label.
-- `POST /api/chat`
-  - Supports an optional `profile` object in the request body.
-  - If the classifier detects elevated risk, the backend strengthens the system instruction before sending the query to Gemma.
+> Survivors should be able to access safety tools privately, offline, and without drawing attention.
 
-## Exporting Backups as PDF
+Most existing safety applications depend heavily on:
+- internet connectivity
+- cloud infrastructure
+- visible interfaces
+- obvious emergency branding
 
-You can export CSV-based backups as a PDF document via the backend.
+However, in real-world domestic violence situations:
+- phones may be monitored
+- search history may be checked
+- messages may be read
+- internet access may be restricted
+- downloading visible “safety apps” can increase danger
 
-- `GET /api/export-backup?source=data2` — exports `data/data2/Domestic violence.csv` as a PDF
-- `GET /api/export-backup?source=data1` — exports `data/data1/Reporte_...csv` as a PDF
-- `GET /api/export-backup?source=processed` — exports `data/processed/train.csv` as a PDF
+QuietInk approaches this problem differently by functioning as:
 
-Example:
+1. A legitimate notes and journaling application  
+2. A hidden AI-powered safety assistant  
+3. A fully offline encrypted personal safety system
 
-```bash
-curl -o backup.pdf "http://localhost:3000/api/export-backup?source=data2"
+---
+
+# The Problem
+
+Domestic violence survivors often face:
+- digital surveillance
+- coercive control
+- restricted communication
+- financial dependence
+- limited access to safe support systems
+
+Traditional safety apps create multiple problems:
+- suspicious app icons
+- visible notifications
+- cloud-based dependencies
+- discoverable interfaces
+- internet requirements
+- unsafe metadata generation
+
+AI systems introduce additional risks:
+- hallucinated legal advice
+- fabricated emergency resources
+- unsafe responses
+- privacy concerns
+
+We wanted to design a system that minimizes these risks while still making AI practically useful.
+
+---
+
+# Solution
+
+QuietInk transforms a simple offline notes app into a hidden private safety infrastructure platform.
+
+The application contains two layers:
+
+## 1. Visible Layer
+
+A clean minimal notes and journaling application.
+
+Users can:
+- write notes
+- create checklists
+- organize folders
+- maintain journals
+
+The visible app must feel completely ordinary.
+
+---
+
+## 2. Hidden Layer — Private Space
+
+A concealed secure environment accessible only through hidden triggers.
+
+Private Space includes:
+- AI safety assistant
+- silent SOS system
+- emergency planning workflows
+- encrypted evidence storage
+- device safety scanning
+- offline legal/help resources
+
+The hidden system is designed to:
+- remain undiscoverable during casual inspection
+- operate fully offline
+- prioritize speed and discretion
+
+---
+
+# Core Features
+
+# Minimal Notes & Journaling Application
+
+The visible application supports:
+- offline note creation
+- journaling
+- checklists
+- search
+- folders/tags
+- lightweight markdown support
+
+Design goals:
+- minimalistic appearance
+- no suspicious UI
+- fast performance
+- low resource usage
+- familiar interaction patterns
+
+---
+
+# Hidden Entry System
+
+Private Space is intentionally concealed.
+
+Supported triggers:
+- secret keywords inside notes
+- hidden gestures
+- secondary PIN system
+- interaction sequences
+
+Examples:
+
+```text
+safe://open
+#private_mode
 ```
 
-## Running Tests
+The system avoids visible buttons or suspicious menu items.
 
-This repository includes a lightweight test harness that validates:
+---
 
-- data preparation (`scripts/prepare_data.py`)
-- model training and export (`scripts/train_model.py`)
-- classifier inference (`src/services/safetyClassifier.ts`)
-- PDF backup export service (`src/services/exportService.js`)
+# Private Space
 
-Run the suite with:
+Private Space is the hidden offline security environment.
 
-```bash
-npm test
+It includes:
+
+## Emergency Contacts
+- encrypted local storage
+- trusted contacts
+- coded emergency phrases
+
+---
+
+## Emergency Action System
+
+Silent emergency workflows including:
+- silent SMS alerts
+- location sharing
+- coded messages
+- optional emergency audio recording
+
+The UI is intentionally minimal:
+- no animations
+- no confirmation dialogs
+- fast execution
+
+---
+
+## Safety Planning
+
+Structured emergency preparation tools:
+- emergency exit planning
+- document preparation checklists
+- transport planning
+- emergency bag guidance
+- safety timing workflows
+
+---
+
+## Device Safety Check
+
+Detects potential monitoring indicators:
+- accessibility abuse
+- remote access tools
+- screen monitoring software
+- suspicious permissions
+
+The interface avoids technical complexity and only shows:
+- SAFE
+- WARNING
+
+---
+
+# Secure Vault
+
+QuietInk contains a fully encrypted Secure Vault for sensitive information.
+
+Supports:
+- photos
+- voice recordings
+- documents
+- incident logs
+- text entries
+
+Security features:
+- AES-256 encryption
+- SQLCipher encrypted database
+- biometric lock support
+- Android Keystore integration
+- local-only storage
+
+The vault is designed to:
+- minimize metadata exposure
+- avoid cloud dependency
+- support fast emergency access
+
+---
+
+# Offline AI Safety Assistant
+
+The AI assistant is powered by multiple Gemma 4 models.
+
+## Models Used
+- Gemma 4 E2B
+- Gemma 4 E4B
+- Gemma 4 26B
+- Gemma 4 31B
+
+---
+
+# AI Goals
+
+The AI is designed specifically for:
+- grounded safety guidance
+- emergency planning
+- device safety awareness
+- structured risk assessment
+- offline assistance
+
+The assistant intentionally avoids:
+- emotional over-generation
+- hallucinated legal advice
+- fabricated shelters/resources
+- unsafe recommendations
+
+---
+
+# Retrieval-Augmented Generation (RAG)
+
+To reduce hallucinations, QuietInk uses Retrieval-Augmented Generation.
+
+The system retrieves grounded information from:
+- offline legal datasets
+- safety checklists
+- emergency guidance documents
+- digital security protocols
+
+This retrieved information is passed into Gemma models before response generation.
+
+---
+
+# AI Routing Architecture
+
+Different Gemma models handle different workloads.
+
+```text
+User Query
+    ↓
+Safety Classifier
+    ↓
+Offline Retrieval System
+    ↓
+Gemma Routing Layer
 ```
 
-## Exporting Backups as PDF
+## Model Roles
 
-You can export CSV-based backups as a PDF document via the backend.
+| Model | Purpose |
+|---|---|
+| Gemma 4 E2B | Fast lightweight offline responses |
+| Gemma 4 E4B | General reasoning |
+| Gemma 4 26B | Structured planning |
+| Gemma 4 31B | Complex reasoning and fallback |
 
-- `GET /api/export-backup?source=data2` — exports `data/data2/Domestic violence.csv` as a PDF
-- `GET /api/export-backup?source=data1` — exports `data/data1/Reporte_...csv` as a PDF
-- `GET /api/export-backup?source=processed` — exports `data/processed/train.csv` as a PDF
+---
 
-Before using this endpoint, install the PDF dependency:
+# Security Architecture
 
-```bash
-npm install pdfkit
+QuietInk follows a local-first security model.
+
+## Security Principles
+- offline-first operation
+- zero analytics
+- minimal metadata
+- encrypted local storage
+- no mandatory cloud sync
+
+---
+
+## Encryption Stack
+
+### Storage
+- SQLCipher
+- AES-256
+
+### Secure Key Handling
+- Android Keystore
+- libsodium
+
+### Authentication
+- optional biometric lock
+- secondary PIN system
+
+---
+
+# Stealth Design Philosophy
+
+The application must remain non-suspicious.
+
+## UX Requirements
+- monochrome UI
+- no flashy visuals
+- no suspicious labels
+- no emergency-themed branding
+- no visible panic buttons
+
+The app should appear indistinguishable from a normal productivity app.
+
+---
+
+# Performance Goals
+
+QuietInk is optimized for:
+- low-end Android devices
+- offline environments
+- fast startup time
+- efficient inference
+- reduced memory usage
+
+Target constraints:
+- lightweight installation size
+- under 3-second local AI responses
+- stable offline functionality
+
+---
+
+# Emergency Systems
+
+QuietInk includes:
+- silent SOS messaging
+- trusted contact workflows
+- coded emergency phrases
+- emergency planning checklists
+- discreet location sharing
+
+The emergency system is designed for:
+- speed
+- discretion
+- minimal interaction time
+
+---
+
+# Tech Stack
+
+## Frontend
+- React
+- Vite
+- TypeScript
+
+## AI Runtime
+- Gemma 4 E2B
+- Gemma 4 E4B
+- Gemma 4 26B
+- Gemma 4 31B
+- ONNX Runtime
+- llama.cpp
+
+## Backend
+- Node.js
+- Express.js
+
+## Storage
+- SQLite
+- SQLCipher
+
+## Security
+- AES-256 Encryption
+- Android Keystore
+- libsodium
+
+## AI Infrastructure
+- Retrieval-Augmented Generation (RAG)
+- Offline inference
+- Local-first architecture
+
+---
+
+# Project Architecture
+
+```text
+QuietInk
+│
+├── Notes Layer
+│   ├── Journals
+│   ├── Checklists
+│   └── Search
+│
+├── Hidden Entry System
+│
+├── Private Space
+│   ├── AI Assistant
+│   ├── Emergency Tools
+│   ├── Secure Vault
+│   ├── Device Safety Check
+│   └── Offline Help Library
+│
+├── AI Layer
+│   ├── Safety Classifier
+│   ├── RAG Pipeline
+│   └── Gemma Routing
+│
+└── Encryption Layer
+    ├── SQLCipher
+    ├── AES-256
+    └── Android Keystore
 ```
 
-Example:
+---
+
+# Setup Instructions
+
+## Install Dependencies
 
 ```bash
-curl -o backup.pdf "http://localhost:3000/api/export-backup?source=data2"
+npm install
 ```
+
+---
+
+## Start Development Server
+
+```bash
+npm run dev
+```
+
+---
+
+## Build Application
+
+```bash
+npm run build
+```
+
+---
+
+# Future Roadmap
+
+Planned improvements include:
+- Flutter native deployment
+- multilingual support
+- advanced offline retrieval
+- improved mobile inference optimization
+- encrypted offline exports
+- enhanced device monitoring detection
+- NGO and safety organization partnerships
+
+---
+
+# Disclaimer
+
+QuietInk is an educational and research-oriented prototype.
+
+It is not a replacement for:
+- emergency services
+- legal professionals
+- law enforcement
+- crisis intervention organizations
+
+Always contact local authorities or trusted organizations in emergencies.
+
+---
+
+# Vision
+
+QuietInk explores how AI can move beyond productivity and become:
+
+> private safety infrastructure for vulnerable people.
+
+---
+
+# License
+
+MIT License
+
+---
+
+# Built For
+
+Gemma 4 Hackathon
+
+Focused on:
+- AI safety
+- humanitarian technology
+- offline AI systems
+- privacy-first mobile UX
+- survivability-focused design
