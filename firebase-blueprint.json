@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "VaultItem": {
+      "title": "Vault Item",
+      "description": "An encrypted record stored in the user's private vault.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["text", "image", "voice", "document", "location"] },
+        "encryptedPayload": { "type": "string", "description": "AES-256 encrypted data" },
+        "label": { "type": "string", "description": "Plaintext title/label for UI display" },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "tags": { "type": "array", "items": { "type": "string" } },
+            "mimeType": { "type": "string" },
+            "fileName": { "type": "string" }
+          }
+        },
+        "timestamp": { "type": "number" },
+        "ownerId": { "type": "string" }
+      },
+      "required": ["id", "type", "encryptedPayload", "label", "timestamp", "ownerId"]
+    },
+    "EmergencyContact": {
+      "title": "Emergency Contact",
+      "description": "A contact notified during SOS triggers.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "codeMessage": { "type": "string" },
+        "ownerId": { "type": "string" }
+      },
+      "required": ["id", "name", "phone", "codeMessage", "ownerId"]
+    },
+    "Note": {
+      "title": "Note",
+      "description": "A standard (non-secure) journal entry.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "color": { "type": "string" },
+        "ownerId": { "type": "string" }
+      },
+      "required": ["id", "title", "content", "timestamp", "ownerId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/vault/{itemId}": {
+      "schema": "VaultItem",
+      "description": "Secure vault entries for a specific user."
+    },
+    "/users/{userId}/contacts/{contactId}": {
+      "schema": "EmergencyContact",
+      "description": "Emergency contacts for a specific user."
+    },
+    "/users/{userId}/notes/{noteId}": {
+      "schema": "Note",
+      "description": "Standard journal notes for a specific user."
+    }
+  }
+}

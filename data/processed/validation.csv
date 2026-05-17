@@ -1,0 +1,53 @@
+age,education,employment,income,marital_status,violence
+54,primary,unemployed,0,married,1
+45,none,unemployed,0,married,0
+40,primary,unemployed,0,married,1
+25,tertiary,unemployed,0,unmarred,0
+36,none,unemployed,0,married,0
+26,none,unemployed,0,married,0
+37,none,unemployed,0,married,0
+35,none,unemployed,0,married,1
+35,secondary,unemployed,0,married,0
+43,primary,unemployed,0,married,1
+29,secondary,unemployed,0,married,1
+21,secondary,semi employed,4000,unmarred,0
+21,secondary,unemployed,0,unmarred,0
+23,primary,unemployed,0,married,1
+40,none,unemployed,0,married,0
+25,none,unemployed,0,married,0
+30,primary,semi employed,10000,married,0
+30,tertiary,employed,22000,married,0
+31,primary,unemployed,0,married,0
+24,primary,unemployed,0,married,1
+20,tertiary,semi employed,3000,unmarred,0
+56,none,unemployed,0,married,0
+33,secondary,unemployed,0,married,0
+36,primary,unemployed,0,married,0
+40,none,semi employed,10000,married,0
+25,primary,employed,15000,married,1
+43,primary,semi employed,4000,married,0
+24,primary,unemployed,0,married,1
+40,secondary,unemployed,0,married,0
+39,primary,unemployed,0,married,1
+44,primary,unemployed,0,married,0
+29,primary,unemployed,0,married,0
+42,none,unemployed,0,married,1
+27,tertiary,semi employed,10000,married,0
+18,secondary,unemployed,0,unmarred,0
+24,none,unemployed,0,married,0
+35,none,unemployed,0,married,0
+35,primary,unemployed,0,married,1
+25,secondary,unemployed,0,married,0
+23,secondary,unemployed,0,married,0
+43,none,unemployed,0,married,1
+44,primary,semi employed,9000,married,0
+45,none,unemployed,0,married,0
+42,none,unemployed,0,married,0
+23,primary,unemployed,0,married,0
+46,primary,unemployed,0,married,0
+23,tertiary,semi employed,5000,unmarred,0
+30,primary,unemployed,0,married,0
+40,primary,unemployed,0,married,0
+19,secondary,unemployed,0,married,0
+23,secondary,unemployed,0,married,0
+24,secondary,employed,2000,unmarred,0

@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Catch-all (Default Deny)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. Primitives
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // 3. Validation Blueprints
+    function isValidVaultItem(data) {
+      return data.keys().hasAll(['id', 'type', 'encryptedPayload', 'label', 'timestamp', 'ownerId']) &&
+             data.keys().size() <= 7 && // metadata is optional
+             data.id is string && data.id.size() <= 64 &&
+             data.type in ['text', 'image', 'voice', 'document', 'location'] &&
+             data.encryptedPayload is string && data.encryptedPayload.size() <= 2000000 && // 2MB roughly (base64)
+             data.label is string && data.label.size() <= 256 &&
+             data.timestamp is number &&
+             data.ownerId == request.auth.uid;
+    }
+
+    function isValidContact(data) {
+      return data.keys().hasAll(['id', 'name', 'phone', 'codeMessage', 'ownerId']) &&
+             data.keys().size() == 5 &&
+             data.id is string &&
+             data.name is string && data.name.size() <= 100 &&
+             data.phone is string && data.phone.size() <= 20 &&
+             data.codeMessage is string && data.codeMessage.size() <= 160 &&
+             data.ownerId == request.auth.uid;
+    }
+
+    function isValidNote(data) {
+      return data.keys().hasAll(['id', 'title', 'content', 'timestamp', 'ownerId']) &&
+             data.keys().size() <= 6 && // color is optional
+             data.id is string &&
+             data.title is string && data.title.size() <= 200 &&
+             data.content is string && data.content.size() <= 100000 &&
+             data.timestamp is number &&
+             data.ownerId == request.auth.uid;
+    }
+
+    // 4. Match Blocks
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+
+      match /vault/{itemId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidId(itemId) && isValidVaultItem(incoming());
+        allow update: if isOwner(userId) && isValidVaultItem(incoming()) && 
+                        incoming().diff(existing()).affectedKeys().hasOnly(['label', 'metadata', 'timestamp']) &&
+                        incoming().id == existing().id &&
+                        incoming().ownerId == existing().ownerId;
+        allow delete: if isOwner(userId);
+      }
+
+      match /contacts/{contactId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidId(contactId) && isValidContact(incoming());
+        allow update: if isOwner(userId) && isValidContact(incoming()) &&
+                        incoming().diff(existing()).affectedKeys().hasOnly(['name', 'phone', 'codeMessage']) &&
+                        incoming().ownerId == existing().ownerId;
+        allow delete: if isOwner(userId);
+      }
+
+      match /notes/{noteId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidId(noteId) && isValidNote(incoming());
+        allow update: if isOwner(userId) && isValidNote(incoming()) &&
+                        incoming().diff(existing()).affectedKeys().hasOnly(['title', 'content', 'color', 'timestamp']) &&
+                        incoming().ownerId == existing().ownerId;
+        allow delete: if isOwner(userId);
+      }
+    }
+  }
+}

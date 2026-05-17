@@ -1,0 +1,6 @@
+{
+  "name": "QuietInk",
+  "description": "A privacy-first, fully offline safety journal and resource library. Features encrypted local storage, silent SOS protocols, and a grounded local safety assistant. Air-gapped by design.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

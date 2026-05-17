@@ -1,0 +1,59 @@
+{
+  "numeric_features": [
+    "age",
+    "income"
+  ],
+  "categorical_features": [
+    "education",
+    "employment",
+    "marital_status"
+  ],
+  "categories": {
+    "education": [
+      "none",
+      "primary",
+      "secondary",
+      "tertiary"
+    ],
+    "employment": [
+      "employed",
+      "semi employed",
+      "unemployed"
+    ],
+    "marital_status": [
+      "married",
+      "unmarred"
+    ]
+  },
+  "feature_names": [
+    "categorical__education_none",
+    "categorical__education_primary",
+    "categorical__education_secondary",
+    "categorical__education_tertiary",
+    "categorical__employment_employed",
+    "categorical__employment_semi employed",
+    "categorical__employment_unemployed",
+    "categorical__marital_status_married",
+    "categorical__marital_status_unmarred",
+    "numeric__age",
+    "numeric__income"
+  ],
+  "coefficients": [
+    -0.08785770739488821,
+    0.2376977159820267,
+    -0.05559323146280715,
+    -0.09803931484907416,
+    0.8605992033433606,
+    -0.38367348802637213,
+    -0.4807182530417299,
+    0.6556197714988369,
+    -0.6594123092235807,
+    0.16290563931586008,
+    -0.6403614427881095
+  ],
+  "intercept": -0.2767245506722862,
+  "target_labels": {
+    "no": 0,
+    "yes": 1
+  }
+}

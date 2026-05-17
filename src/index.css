@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-background: #FFFFFF;
+  --color-foreground: #111111;
+  --color-muted: #777777;
+  --color-border: #EDEDED;
+  --color-secondary-bg: #F9F9F9;
+}
+
+/* Dark mode overrides */
+.dark {
+  --color-background: #0A0A0A;
+  --color-foreground: #E8E8E8;
+  --color-muted: #888888;
+  --color-border: #2A2A2A;
+  --color-secondary-bg: #141414;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+.monochrome-border {
+  @apply border-border;
+}
+
+.markdown-body {
+  @apply text-foreground leading-relaxed;
+}
+
+.markdown-body h1 {
+  @apply text-xl font-medium mt-6 mb-2 tracking-tight;
+}
+
+.markdown-body h2 {
+  @apply text-lg font-medium mt-4 mb-2 tracking-tight;
+}
+
+.markdown-body p {
+  @apply mb-4 text-sm;
+}
+
+.markdown-body ul {
+  @apply list-disc list-inside mb-4 text-sm;
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hidden-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
