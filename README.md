@@ -12,6 +12,7 @@ The project explores how modern AI systems can become:
 - survivability-focused mobile systems
 
 ---
+Deployed on: https://quietink.netlify.app
 
 # Table of Contents
 
